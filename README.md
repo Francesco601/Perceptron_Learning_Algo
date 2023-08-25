@@ -1,4 +1,6 @@
-# Perceptron_Learning_AlgoThe Perceptron Algorithm
+# Perceptron_Learning_Algo
+
+## The Perceptron Algorithm
 
 The perceptron is a classic learning algorithm for the neural model of learning.
 
