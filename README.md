@@ -50,7 +50,8 @@ One aspect of the perceptron algorithm that is left underspecified is line 4, wh
 Consider what the perceptron algorithm would do on a dataset that consisted of 500 positive examples followed by 500 negative examples. After seeing the first few positive examples (maybe 5), it would likely decide that every example is positive, and would stop learning anything. It would do well for a while (next 495 examples), until it hit the batch of negative examples. Then it would take a while (maybe ten examples) before it started predicting everything as negative. By the end of one pass through the data, it would really only have learned from a handful of examples (fifteen in this case).
 
 So one thing we need to avoid is presenting the examples in some fixed order. This can easily be accomplished by permuting the order of examples once in the beginning and then cycling over the dataset in the same (permuted) order each iteration. However, it turns out that you can actually do better if you re-permute the examples in each iteration. In practice, permuting each iteration tends to yield about 20% savings in number of iterations. In theory, you can actually prove that it’s expected to be about twice as fast.
-Geometric Interpretation
+
+## Geometric Interpretation
 
 A question that arises now is: what does the decision boundary of a perceptron look like? You can actually answer the question mathematically. For a perceptron, the decision boundary is precisely where the sign of the activation, a, changes from -1 to +1. In other words, it is the set of points x that achieve zero activation. The points that are not clearly positive nor clearly negative. For simplicity, we’ll first consider the case where there is no “bias” term (or, equivalently, the bias is zero). Formally, the decision boundary beta is:
 
@@ -67,7 +68,8 @@ In that figure, all the data points are projected onto w. Now we can think of th
 From here, we can start thinking about the role of the bias term. Previously, the threshold would be at zero. Any example with a negative projection onto w would be classified negative; any example with a positive projection, positive. The bias simply moves this threshold. Now, after the projection is computed, b is added to get the overall activation. The projection plus b is then compared against 0.
 
 Thus, from a geometric perspective, the role of the bias is to shift the decision boundary away from the origin, in the direction of w. It is shifted exactly -b units. So if b is positive, the boundary is shifted away from w, and if b is negative, the boundary is shifted toward w. This makes intuitive sense: a positive bias means that more examples should be classified positive. By moving the decision boundary in the negative direction, more space yields a positive classification.
-Perceptron Convergence and Linear Separability
+
+## Perceptron Convergence and Linear Separability
 
 We already have an intuitive feeling for why the perceptron works: it moves the decision boundary in the direction of the training example. An important question is: does the perceptron converge? If so, what does it converge to? And how long does it take?
 
@@ -95,9 +97,11 @@ margin (D) = max (margin(D, w, b))
 In words, to compute the margin of a dataset, you “try” every possible w, b pair. For each pair, you compute its margin. We then take the largest of these as the overall margin of the data. If the data is not linearly separable, then the value of the max, and therefore the value of the margin, is −∞.
 
 There is a famous theorem by Rosenblatt that shows that the number of errors that the perceptron algorithm makes is bounded by γ^-2.
-Perceptron Convergence Theorem
 
-Suppose the perceptron algorithm is run on a linearly separable dataset D with margin γ >0 . Assume that ||x|| ≤ 1for all x ∈ D. Then the algorithm will converge after at most 1/ γ² updates.
+## Perceptron Convergence Theorem
+
+<i> Suppose the perceptron algorithm is run on a linearly separable dataset D with margin γ >0 .
+Assume that ||x|| ≤ 1for all x ∈ D. Then the algorithm will converge after at most 1/ γ² updates. </i>
 
 The proof of this theorem is is somewhat complicated, but the idea behind the proof is as follows. If the data is linearly separable with margin γ,
 then there exists some weight vector w* that achieves this margin. Obviously, we don’t know what w* is, but we know it exists. The perceptron algorithm is trying to find a weight vector w that points roughly in the same direction as w*. Every time the perceptron makes an update, the angle between w and w* changes. What can be proved is that the angle actually decreases. This is shown in two steps. First, the dot product w · w* increases a lot. Second, the norm ||w|| does not increase very much. Since the dot product is increasing, but w isn’t getting too long, the angle between them has to be shrinking.
