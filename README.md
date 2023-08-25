@@ -4,7 +4,8 @@
 
 The perceptron is a classic learning algorithm for the neural model of learning.
 
-PerceptronTrain(D,MaxIter) 
+```Python
+ PerceptronTrain(D,MaxIter) 
 
 w_d <- 0 for all d= 1 to D               // initialize weights
 b <- 0                                 // initialize bias
@@ -18,11 +19,14 @@ for iter=1 to MaxIter do
    endfor
 endfor
 return w_1,w_2,w_3,...,w_D,b
+```
+```Python
 
 PerceptronTest(w_0,w_1,...,w_D,b,x̂ )
 
 a ← ∑ w_d * x̂ d + b      // compute activation for the test example
 return sing(a)
+```
 
 The algorithm is actually quite different than either the decision tree algorithm or the KNN algorithm. First, it is online. 
 This means that instead of considering the entire data set at the same time, it only ever looks at one example. It processes that example and then goes on to the next one. Second, it is error-driven. This means that, so long as it is doing well, it doesn’t bother updating its parameters.
